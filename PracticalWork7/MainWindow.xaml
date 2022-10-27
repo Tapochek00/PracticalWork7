@@ -58,8 +58,5 @@
             <MenuItem x:Name="exit" Header="Выход" Click="exit_Click" BorderBrush="{x:Null}" Foreground="#FFFF7500" Background="#FFFDFF18"></MenuItem>
             <MenuItem x:Name="about" Header="О программе" Click="about_Click" BorderBrush="{x:Null}" Foreground="#FFFF7500" Background="#FFFDFF18"></MenuItem>
         </Menu>
-
-        <Button x:Name="btn_Compare" Width="150" Height="20" BorderBrush="{x:Null}" Foreground="#FFFF7500" Background="#FFFDFF18" HorizontalAlignment="Right" 
-                VerticalAlignment="Center" Margin="0, 100, 120, 0" Content="Одинаковы ли жидкости" Click="btn_Compare_Click"></Button>
     </Grid>
 </Window>

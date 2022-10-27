@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
@@ -86,7 +87,7 @@ namespace Пять
         /// <summary>
         /// Изменить назнание, плотность и объём жидкости 
         /// </summary>
-        public void SetParams()
+        public virtual void SetParams()
         {
             Name = "";
             Density = 0;
@@ -96,7 +97,7 @@ namespace Пять
         /// <summary>
         /// Изменить назнание, плотность и объём жидкости 
         /// </summary>
-        public void SetParams(string name, double density, double volume)
+        public virtual void SetParams(string name, double density, double volume)
         {
             Name = name;
             Density = density;
@@ -107,9 +108,10 @@ namespace Пять
         /// Возвращает информацию о жидкости, собранную в одну строку
         /// </summary>
         /// <returns>Информация о жидкости</returns>
-        public string LiquidInfo()
+        public virtual string LiquidInfo()
         {
-            return "Название: " + Name + "\n" + "Плотность: " + Density.ToString() + "\n" + "Объём: " + Volume.ToString();
+            return "Название: " + Name + "\n" + "Плотность: " + Density.ToString() + "\n" +
+                "Объём: " + Volume.ToString() + "\n" + "Крепость: 0" + "\n" + "Содержание хмеля: 0";
         }
 
         /// <summary>
@@ -185,7 +187,7 @@ namespace Пять
             Strength = strength;
         }
 
-        public new void SetParams()
+        public override void SetParams()
         {
             Name = "";
             Density = 0;
@@ -193,7 +195,7 @@ namespace Пять
             Strength = 0;
         }
 
-        public void SetParams(string name, double density, double volume, double strength)
+        public override void SetParams(string name, double density, double volume, double strength)
         {
             Name = name;
             Density = density;
@@ -201,10 +203,11 @@ namespace Пять
             Strength = strength;
         }
 
-        public new string LiquidInfo()
+        public override string LiquidInfo()
         {
-            return "Название: " + Name + "\n" + "Плотность: " + Density.ToString() + "\n" + 
-                "Объём: " + Volume.ToString() + "\n" + "Крепость: " + Strength.ToString();
+            return "Название: " + Name + "\n" + "Плотность: " + Density.ToString() + "\n" +
+                "Объём: " + Volume.ToString() + "\n" + "Крепость: " + Strength.ToString() +
+                "\n" + "Содержание хмеля: 0";
         }
     }
 
@@ -216,12 +219,21 @@ namespace Пять
         {
             get
             {
-                return HopContent;
+                return hopContent;
             }
             set
             {
                 hopContent = value;
             }
+        }
+
+        public Beer()
+        {
+            Name = "";
+            Density = 0;
+            Volume = 0;
+            Strength = 0;
+            HopContent = 0;
         }
 
         public Beer(string name, double density, double volume, double strength, double hopContent) :
@@ -254,5 +266,11 @@ namespace Пять
             HopContent = hopContent;
         }
 
+        public override string LiquidInfo()
+        {
+            return "Название: " + Name + "\n" + "Плотность: " + Density.ToString() + "\n" +
+                "Объём: " + Volume.ToString() + "\n" + "Крепость: " + Strength.ToString() +
+                "\n" + "Содержание хмеля: " + HopContent.ToString();
+        }
     }
 }

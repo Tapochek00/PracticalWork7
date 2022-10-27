@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
@@ -31,7 +32,24 @@ namespace Пять
         {
             try
             {
-                liquid1 = new Liquid(Convert.ToString(name.Text), Convert.ToDouble(dens.Text), Convert.ToDouble(vol.Text));
+                Double.TryParse(hopCont.Text, out double hopContent);
+                Double.TryParse(str.Text, out double strength);
+                if (hopContent > 0)
+                {
+                    liquid1 = new Beer(Convert.ToString(name.Text), Convert.ToDouble(dens.Text),
+                    Convert.ToDouble(vol.Text), strength, hopContent);
+                }
+                else
+                {
+                    hopCont.Text = "0";
+                    if (strength > 0) liquid1 = new Alcohol(Convert.ToString(name.Text), Convert.ToDouble(dens.Text),
+                    Convert.ToDouble(vol.Text), strength);
+                    else
+                    {
+                        str.Text = "0";
+                        liquid1 = new Liquid(Convert.ToString(name.Text), Convert.ToDouble(dens.Text), Convert.ToDouble(vol.Text));
+                    }
+                }
                 liquid1_info.Text = liquid1.LiquidInfo();
             }
             catch (Exception ex)
@@ -44,11 +62,8 @@ namespace Пять
         {
             try
             {
-                if (liquid1 != null && liquid2 != null)
-                {
-                    if (rb_dens.IsChecked == true) result.Text = Convert.ToString(liquid1.DensityDifference(liquid2));
-                    else result.Text = Convert.ToString(liquid1.VolumeDifference(liquid2));
-                }
+                if (rb_dens.IsChecked == true) result.Text = Convert.ToString(liquid1.DensityDifference(liquid2));
+                else result.Text = Convert.ToString(liquid1.VolumeDifference(liquid2));
             }
             catch (Exception ex)
             {
@@ -61,7 +76,24 @@ namespace Пять
         {
             try
             {
-                liquid2 = new Liquid(Convert.ToString(l2_name.Text), Convert.ToDouble(l2_dens.Text), Convert.ToDouble(l2_vol.Text));
+                Double.TryParse(l2_hopCont.Text, out double hopContent);
+                Double.TryParse(l2_str.Text, out double strength);
+                if (hopContent > 0)
+                {
+                    liquid2 = new Beer(Convert.ToString(l2_name.Text), Convert.ToDouble(l2_dens.Text),
+                    Convert.ToDouble(l2_vol.Text), strength, hopContent);
+                }
+                else
+                {
+                    l2_hopCont.Text = "0";
+                    if (strength > 0) liquid2 = new Alcohol(Convert.ToString(l2_name.Text), Convert.ToDouble(l2_dens.Text),
+                    Convert.ToDouble(l2_vol.Text), strength);
+                    else
+                    {
+                        l2_str.Text = "0";
+                        liquid2 = new Liquid(Convert.ToString(l2_name.Text), Convert.ToDouble(l2_dens.Text), Convert.ToDouble(l2_vol.Text));
+                    }
+                }
                 liquid2_info.Text = liquid2.LiquidInfo();
             }
             catch (Exception ex)
@@ -87,7 +119,8 @@ namespace Пять
         {
             try
             {
-                liquid1.SetParams(Convert.ToString(name.Text), Convert.ToDouble(dens.Text), Convert.ToDouble(vol.Text));
+                if (hopCont.Text == "0" && str.Text == "0") liquid1.SetParams(Convert.ToString(name.Text), Convert.ToDouble(dens.Text), Convert.ToDouble(vol.Text));
+                else if (hopCont.Text != "0") liquid1.SetParams(Convert.ToString(name.Text), Convert.ToDouble(dens.Text), Convert.ToDouble(vol.Text), Convert.ToDouble(str.Text), Convert.ToDouble(hopCont.Text));
                 liquid1_info.Text = liquid1.LiquidInfo();
             }
             catch (Exception ex)
@@ -134,12 +167,6 @@ namespace Пять
         {
             liquid2--;
             liquid2_info.Text = liquid2.LiquidInfo();
-        }
-
-        private void btn_Compare_Click(object sender, RoutedEventArgs e)
-        {
-            if (liquid1 == liquid2) MessageBox.Show("Жидкости имеют равный объём, равную плотность и одинаковое название");
-            else MessageBox.Show("Жидкости различаются");
         }
     }
 }
