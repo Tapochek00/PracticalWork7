@@ -28,6 +28,9 @@ namespace Пять
         }
 
         Liquid liquid1;
+        Alcohol alcohol1;
+        Beer beer1;
+        char whatIsIt1;
         private void btn_Add_Click(object sender, RoutedEventArgs e)
         {
             try
@@ -36,34 +39,30 @@ namespace Пять
                 Double.TryParse(str.Text, out double strength);
                 if (hopContent > 0)
                 {
-                    liquid1 = new Beer(Convert.ToString(name.Text), Convert.ToDouble(dens.Text),
+                    whatIsIt1 = 'b';
+                    beer1 = new Beer(Convert.ToString(name.Text), Convert.ToDouble(dens.Text),
                     Convert.ToDouble(vol.Text), strength, hopContent);
+                    liquid1_info.Text = beer1.LiquidInfo();
                 }
                 else
                 {
                     hopCont.Text = "0";
-                    if (strength > 0) liquid1 = new Alcohol(Convert.ToString(name.Text), Convert.ToDouble(dens.Text),
-                    Convert.ToDouble(vol.Text), strength);
+                    if (strength > 0)
+                    {
+                        whatIsIt1 = 'a';
+                        alcohol1 = new Alcohol(Convert.ToString(name.Text), Convert.ToDouble(dens.Text), 
+                            Convert.ToDouble(vol.Text), strength);
+                        liquid1_info.Text = alcohol1.LiquidInfo();
+                    }
                     else
                     {
+                        whatIsIt1 = 'l';
                         str.Text = "0";
-                        liquid1 = new Liquid(Convert.ToString(name.Text), Convert.ToDouble(dens.Text), Convert.ToDouble(vol.Text));
+                        liquid1 = new Liquid(Convert.ToString(name.Text), Convert.ToDouble(dens.Text), 
+                            Convert.ToDouble(vol.Text));
+                        liquid1_info.Text = liquid1.LiquidInfo();
                     }
                 }
-                liquid1_info.Text = liquid1.LiquidInfo();
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
-        }
-
-        private void btn_Dif_Click(object sender, RoutedEventArgs e)
-        {
-            try
-            {
-                if (rb_dens.IsChecked == true) result.Text = Convert.ToString(liquid1.DensityDifference(liquid2));
-                else result.Text = Convert.ToString(liquid1.VolumeDifference(liquid2));
             }
             catch (Exception ex)
             {
@@ -72,6 +71,9 @@ namespace Пять
         }
 
         Liquid liquid2;
+        Alcohol alcohol2;
+        Beer beer2;
+        char whatIsIt2;
         private void btn_Add2_Click(object sender, RoutedEventArgs e)
         {
             try
@@ -80,21 +82,30 @@ namespace Пять
                 Double.TryParse(l2_str.Text, out double strength);
                 if (hopContent > 0)
                 {
-                    liquid2 = new Beer(Convert.ToString(l2_name.Text), Convert.ToDouble(l2_dens.Text),
+                    whatIsIt2 = 'b';
+                    beer2 = new Beer(Convert.ToString(l2_name.Text), Convert.ToDouble(l2_dens.Text),
                     Convert.ToDouble(l2_vol.Text), strength, hopContent);
+                    liquid2_info.Text = beer2.LiquidInfo();
                 }
                 else
                 {
                     l2_hopCont.Text = "0";
-                    if (strength > 0) liquid2 = new Alcohol(Convert.ToString(l2_name.Text), Convert.ToDouble(l2_dens.Text),
-                    Convert.ToDouble(l2_vol.Text), strength);
+                    if (strength > 0)
+                    {
+                        whatIsIt2 = 'a';
+                        alcohol2 = new Alcohol(Convert.ToString(l2_name.Text), Convert.ToDouble(l2_dens.Text),
+                            Convert.ToDouble(l2_vol.Text), strength);
+                        liquid2_info.Text = alcohol2.LiquidInfo();
+                    }
                     else
                     {
+                        whatIsIt2 = 'l';
                         l2_str.Text = "0";
-                        liquid2 = new Liquid(Convert.ToString(l2_name.Text), Convert.ToDouble(l2_dens.Text), Convert.ToDouble(l2_vol.Text));
+                        liquid2 = new Liquid(Convert.ToString(l2_name.Text), Convert.ToDouble(l2_dens.Text),
+                            Convert.ToDouble(l2_vol.Text));
+                        liquid2_info.Text = liquid2.LiquidInfo();
                     }
                 }
-                liquid2_info.Text = liquid2.LiquidInfo();
             }
             catch (Exception ex)
             {
@@ -106,8 +117,26 @@ namespace Пять
         {
             try
             {
-                liquid2.SetParams(Convert.ToString(l2_name.Text), Convert.ToDouble(l2_dens.Text), Convert.ToDouble(l2_vol.Text));
-                liquid2_info.Text = liquid2.LiquidInfo();
+                string name = l2_name.Text;
+                Double.TryParse(l2_dens.Text, out double dens);
+                Double.TryParse(l2_vol.Text, out double vol);
+                Double.TryParse(l2_hopCont.Text, out double hopContent);
+                Double.TryParse(l2_str.Text, out double strength);
+                if (whatIsIt2 == 'l')
+                {
+                    liquid2.SetParams(name, dens, vol);
+                    liquid2_info.Text = liquid2.LiquidInfo();
+                }
+                else if (whatIsIt2 == 'b')
+                {
+                    beer2.SetParams(name, dens, vol, strength, hopContent);
+                    liquid2_info.Text = beer2.LiquidInfo();
+                }
+                else
+                {
+                    alcohol2.SetParams(name, dens, vol, strength);
+                    liquid2_info.Text = alcohol2.LiquidInfo();
+                }
             }
             catch (Exception ex)
             {
@@ -119,9 +148,27 @@ namespace Пять
         {
             try
             {
-                if (hopCont.Text == "0" && str.Text == "0") liquid1.SetParams(Convert.ToString(name.Text), Convert.ToDouble(dens.Text), Convert.ToDouble(vol.Text));
-                else if (hopCont.Text != "0") liquid1.SetParams(Convert.ToString(name.Text), Convert.ToDouble(dens.Text), Convert.ToDouble(vol.Text), Convert.ToDouble(str.Text), Convert.ToDouble(hopCont.Text));
-                liquid1_info.Text = liquid1.LiquidInfo();
+                string lName = name.Text;
+                Double.TryParse(dens.Text, out double density);
+                Double.TryParse(vol.Text, out double volume);
+                Double.TryParse(hopCont.Text, out double hopContent);
+                Double.TryParse(str.Text, out double strength);
+                if (whatIsIt1 == 'l')
+                {
+                    liquid1.SetParams(lName, density, volume);
+                    liquid1_info.Text = liquid1.LiquidInfo();
+                }
+                else if (whatIsIt1 == 'b')
+                {
+                    beer1.SetParams(lName, density, volume, strength, hopContent);
+                    liquid1_info.Text = beer1.LiquidInfo();
+                }
+                else
+                {
+                    alcohol1.SetParams(lName, density, volume, strength);
+                    liquid1_info.Text = alcohol1.LiquidInfo();
+                }
+
             }
             catch (Exception ex)
             {
@@ -147,26 +194,78 @@ namespace Пять
 
         private void btn_decr_Click(object sender, RoutedEventArgs e)
         {
-            liquid1--;
-            liquid1_info.Text = liquid1.LiquidInfo();
+            if (whatIsIt1 == 'l')
+            {
+                liquid1--;
+                liquid1_info.Text = liquid1.LiquidInfo();
+            }
+            else if (whatIsIt1 == 'b')
+            {
+                beer1--;
+                liquid1_info.Text = beer1.LiquidInfo();
+            }
+            else
+            {
+                alcohol1--;
+                liquid1_info.Text = alcohol1.LiquidInfo();
+            }
         }
 
         private void btn_inc_Click(object sender, RoutedEventArgs e)
         {
-            liquid1++;
-            liquid1_info.Text = liquid1.LiquidInfo();
+            if (whatIsIt1 == 'l')
+            {
+                liquid1++;
+                liquid1_info.Text = liquid1.LiquidInfo();
+            }
+            else if (whatIsIt1 == 'b')
+            {
+                beer1++;
+                liquid1_info.Text = beer1.LiquidInfo();
+            }
+            else
+            {
+                alcohol1++;
+                liquid1_info.Text = alcohol1.LiquidInfo();
+            }
         }
 
         private void btn_inc2_Click(object sender, RoutedEventArgs e)
         {
-            liquid2++;
-            liquid2_info.Text = liquid2.LiquidInfo();
+            if (whatIsIt2 == 'l')
+            {
+                liquid2++;
+                liquid2_info.Text = liquid2.LiquidInfo();
+            }
+            else if (whatIsIt1 == 'b')
+            {
+                beer2++;
+                liquid2_info.Text = beer2.LiquidInfo();
+            }
+            else
+            {
+                alcohol2++;
+                liquid2_info.Text = alcohol2.LiquidInfo();
+            }
         }
 
         private void btn_decr2_Click(object sender, RoutedEventArgs e)
         {
-            liquid2--;
-            liquid2_info.Text = liquid2.LiquidInfo();
+            if (whatIsIt2 == 'l')
+            {
+                liquid2--;
+                liquid2_info.Text = liquid2.LiquidInfo();
+            }
+            else if (whatIsIt1 == 'b')
+            {
+                beer2--;
+                liquid2_info.Text = beer2.LiquidInfo();
+            }
+            else
+            {
+                alcohol2--;
+                liquid2_info.Text = alcohol2.LiquidInfo();
+            }
         }
     }
 }

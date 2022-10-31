@@ -87,7 +87,7 @@ namespace Пять
         /// <summary>
         /// Изменить назнание, плотность и объём жидкости 
         /// </summary>
-        public virtual void SetParams()
+        public void SetParams()
         {
             Name = "";
             Density = 0;
@@ -97,7 +97,7 @@ namespace Пять
         /// <summary>
         /// Изменить назнание, плотность и объём жидкости 
         /// </summary>
-        public virtual void SetParams(string name, double density, double volume)
+        public void SetParams(string name, double density, double volume)
         {
             Name = name;
             Density = density;
@@ -187,7 +187,7 @@ namespace Пять
             Strength = strength;
         }
 
-        public override void SetParams()
+        public new void SetParams()
         {
             Name = "";
             Density = 0;
@@ -195,12 +195,30 @@ namespace Пять
             Strength = 0;
         }
 
-        public override void SetParams(string name, double density, double volume, double strength)
+        public void SetParams(string name, double density, double volume, double strength)
         {
             Name = name;
             Density = density;
             Volume = volume;
             Strength = strength;
+        }
+
+        /// <summary>
+        /// Увеличивает объём на 1
+        /// </summary>
+        public static Alcohol operator ++(Alcohol liquid)
+        {
+            liquid.Volume += 1;
+            return liquid;
+        }
+
+        /// <summary>
+        /// Уменьшает объём на 1
+        /// </summary>
+        public static Alcohol operator --(Alcohol liquid)
+        {
+            if (liquid.Volume > 0) liquid.Volume -= 1;
+            return liquid;
         }
 
         public override string LiquidInfo()
@@ -264,6 +282,21 @@ namespace Пять
         {
             Strength = strength;
             HopContent = hopContent;
+        }
+
+        public static Beer operator ++(Beer liquid)
+        {
+            liquid.Volume += 1;
+            return liquid;
+        }
+
+        /// <summary>
+        /// Уменьшает объём на 1
+        /// </summary>
+        public static Beer operator --(Beer liquid)
+        {
+            if (liquid.Volume > 0) liquid.Volume -= 1;
+            return liquid;
         }
 
         public override string LiquidInfo()

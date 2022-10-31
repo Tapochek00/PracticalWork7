@@ -25,11 +25,6 @@
         <Button x:Name="btn_Add" Width="120" Height="20" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="65, 0, 0, 95" Content="Добавить" Click="btn_Add_Click" Foreground="#FFFF7500" Background="#FFFDFF40" BorderBrush="{x:Null}"></Button>
         <Button x:Name="btn_Edit" Width="120" Height="20" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="65, 100, 0, 70" Content="Изменить" Click="btn_Edit_Click" Foreground="#FFFF7500" Background="#FFFDFF18" BorderBrush="{x:Null}"></Button>
 
-        <Button x:Name="btn_Dif" Width="100" Height="20" HorizontalAlignment="Right" BorderBrush="{x:Null}" Foreground="#FFFF7500" Background="#FFFDFF18" VerticalAlignment="Top" Margin="0, 100, 150, 0" Content="Найти разницу" Click="btn_Dif_Click"></Button>
-        <RadioButton x:Name="rb_dens" GroupName="densOrVol" HorizontalAlignment="Right" VerticalAlignment="Center" IsChecked="True" Margin="0, 0, 170, 150" Foreground="White">Плотность</RadioButton>
-        <RadioButton x:Name="rb_vol" GroupName="densOrVol" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0, 0, 190, 110" Foreground="White">Объём</RadioButton>
-        <TextBox x:Name="result" Width="200" Height="20" HorizontalAlignment="Right" VerticalAlignment="Center" IsReadOnly="True" Margin="0, 0, 100, 10">Результат</TextBox>
-
         <TextBox x:Name="liquid2_info" Width="150" Height="60" HorizontalAlignment="Center" VerticalAlignment="Top" IsReadOnly="True" Margin="0, 20, 100, 0">Жидкость 2</TextBox>
         <TextBox x:Name="l2_name" Width="100" Height="20" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0, 100, 100, 0"></TextBox>
         <TextBox x:Name="l2_dens" Width="100" Height="20" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0, 140, 100, 0"></TextBox>
