@@ -35,31 +35,33 @@ namespace Пять
         {
             try
             {
+                string lName = name.Text;
+                Double.TryParse(dens.Text, out double density);                
+                Double.TryParse(vol.Text, out double volume);
                 Double.TryParse(hopCont.Text, out double hopContent);
                 Double.TryParse(str.Text, out double strength);
+                density = Math.Abs(density);
+                volume = Math.Abs(volume);
+                hopContent = Math.Abs(hopContent);
+                strength = Math.Abs(strength);
                 if (hopContent > 0)
                 {
                     whatIsIt1 = 'b';
-                    beer1 = new Beer(Convert.ToString(name.Text), Convert.ToDouble(dens.Text),
-                    Convert.ToDouble(vol.Text), strength, hopContent);
+                    beer1 = new Beer(lName, density, volume, strength, hopContent);
                     liquid1_info.Text = beer1.LiquidInfo();
                 }
                 else
                 {
-                    hopCont.Text = "0";
                     if (strength > 0)
                     {
                         whatIsIt1 = 'a';
-                        alcohol1 = new Alcohol(Convert.ToString(name.Text), Convert.ToDouble(dens.Text), 
-                            Convert.ToDouble(vol.Text), strength);
+                        alcohol1 = new Alcohol(lName, density, volume, strength);
                         liquid1_info.Text = alcohol1.LiquidInfo();
                     }
                     else
                     {
                         whatIsIt1 = 'l';
-                        str.Text = "0";
-                        liquid1 = new Liquid(Convert.ToString(name.Text), Convert.ToDouble(dens.Text), 
-                            Convert.ToDouble(vol.Text));
+                        liquid1 = new Liquid(lName, density, volume);
                         liquid1_info.Text = liquid1.LiquidInfo();
                     }
                 }
@@ -78,31 +80,34 @@ namespace Пять
         {
             try
             {
+                string name = l2_name.Text;
+                Double.TryParse(l2_dens.Text, out double dens);
+                Double.TryParse(l2_vol.Text, out double vol);
                 Double.TryParse(l2_hopCont.Text, out double hopContent);
                 Double.TryParse(l2_str.Text, out double strength);
+                dens = Math.Abs(dens);
+                vol = Math.Abs(vol);
+                hopContent = Math.Abs(hopContent);
+                strength = Math.Abs(strength);
                 if (hopContent > 0)
                 {
                     whatIsIt2 = 'b';
-                    beer2 = new Beer(Convert.ToString(l2_name.Text), Convert.ToDouble(l2_dens.Text),
-                    Convert.ToDouble(l2_vol.Text), strength, hopContent);
+                    beer2 = new Beer(name, dens, vol, strength, hopContent);
                     liquid2_info.Text = beer2.LiquidInfo();
                 }
                 else
                 {
-                    l2_hopCont.Text = "0";
                     if (strength > 0)
                     {
                         whatIsIt2 = 'a';
-                        alcohol2 = new Alcohol(Convert.ToString(l2_name.Text), Convert.ToDouble(l2_dens.Text),
-                            Convert.ToDouble(l2_vol.Text), strength);
+                        alcohol2 = new Alcohol(name, dens, vol, strength);
                         liquid2_info.Text = alcohol2.LiquidInfo();
+                        l2_str.Text = Convert.ToString(Math.Abs(strength));
                     }
                     else
                     {
                         whatIsIt2 = 'l';
-                        l2_str.Text = "0";
-                        liquid2 = new Liquid(Convert.ToString(l2_name.Text), Convert.ToDouble(l2_dens.Text),
-                            Convert.ToDouble(l2_vol.Text));
+                        liquid2 = new Liquid(name, dens, vol);
                         liquid2_info.Text = liquid2.LiquidInfo();
                     }
                 }
@@ -122,6 +127,10 @@ namespace Пять
                 Double.TryParse(l2_vol.Text, out double vol);
                 Double.TryParse(l2_hopCont.Text, out double hopContent);
                 Double.TryParse(l2_str.Text, out double strength);
+                dens = Math.Abs(dens);
+                vol = Math.Abs(vol);
+                hopContent = Math.Abs(hopContent);
+                strength = Math.Abs(strength);
                 if (whatIsIt2 == 'l')
                 {
                     liquid2.SetParams(name, dens, vol);
@@ -153,6 +162,10 @@ namespace Пять
                 Double.TryParse(vol.Text, out double volume);
                 Double.TryParse(hopCont.Text, out double hopContent);
                 Double.TryParse(str.Text, out double strength);
+                density = Math.Abs(density);
+                volume = Math.Abs(volume);
+                hopContent = Math.Abs(hopContent);
+                strength = Math.Abs(strength);
                 if (whatIsIt1 == 'l')
                 {
                     liquid1.SetParams(lName, density, volume);
